@@ -1,9 +1,6 @@
 (function (Drupal, once) {
   'use strict';
 
-  /**
-   * Enhance facet interactions on the Content Hub page.
-   */
   Drupal.behaviors.contentHubFacets = {
     attach: function (context) {
       // Animate cards on load
@@ -17,20 +14,30 @@
         }, index * 60);
       });
 
-      // Add result count header
-      once('ch-result-count', '.content-hub-view .view-content', context).forEach(function (viewContent) {
-        var rows = viewContent.querySelectorAll('.views-row');
-        var existing = viewContent.parentNode.querySelector('.content-hub-results-count');
-        if (existing) {
-          existing.textContent = rows.length + ' result' + (rows.length !== 1 ? 's' : '') + ' found';
-        }
-        else if (rows.length > 0) {
-          var counter = document.createElement('div');
-          counter.className = 'content-hub-results-count';
-          counter.style.cssText = 'color: #64748b; font-size: 0.9rem; margin-bottom: 1rem; font-weight: 500;';
-          counter.textContent = rows.length + ' result' + (rows.length !== 1 ? 's' : '') + ' found';
-          viewContent.parentNode.insertBefore(counter, viewContent);
-        }
+      // Auto-submit when search input is cleared
+      once('ch-auto-clear', '.content-hub-view input[name="search"]', context).forEach(function (input) {
+        var lastValue = input.value;
+
+        input.addEventListener('input', function () {
+          // Submit form when input is cleared (empty)
+          if (this.value === '' && lastValue !== '') {
+            var form = this.closest('form');
+            if (form) {
+              form.querySelector('input[type="submit"]').click();
+            }
+          }
+          lastValue = this.value;
+        });
+
+        // Also handle the clear button on search inputs (X button)
+        input.addEventListener('search', function () {
+          if (this.value === '') {
+            var form = this.closest('form');
+            if (form) {
+              form.querySelector('input[type="submit"]').click();
+            }
+          }
+        });
       });
     }
   };

@@ -8,6 +8,16 @@
 use Drupal\Core\Form\FormStateInterface;
 
 /**
+ * Implements hook_preprocess_html().
+ */
+function content_hub_styling_preprocess_html(&$variables) {
+  $route = \Drupal::routeMatch()->getRouteName();
+  if ($route === 'view.content_hub.page_1') {
+    $variables['attributes']['class'][] = 'path-content-hub';
+  }
+}
+
+/**
  * Implements hook_preprocess_page().
  */
 function content_hub_styling_preprocess_page(&$variables) {
@@ -15,7 +25,6 @@ function content_hub_styling_preprocess_page(&$variables) {
   // Attach library on the content hub view page.
   if ($route === 'view.content_hub.page_1') {
     $variables['#attached']['library'][] = 'content_hub_styling/content-hub';
-    $variables['attributes']['class'][] = 'content-hub-page';
   }
 }
 
