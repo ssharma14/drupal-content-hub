@@ -1,0 +1,7 @@
+name: 'Content Hub Enhancements'
+type: module
+description: 'Custom logic for search improvements including article boosting and featured content support.'
+core_version_requirement: ^10 || ^11
+package: Custom
+dependencies:
+  - search_api:search_api

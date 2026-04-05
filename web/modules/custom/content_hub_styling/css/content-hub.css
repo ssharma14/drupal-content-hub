@@ -1,0 +1,651 @@
+/* ============================================
+   Content Hub - Main Page Styling
+   ============================================ */
+
+:root {
+  --ch-primary: #1a56db;
+  --ch-primary-light: #e8f0fe;
+  --ch-primary-dark: #0d3b8c;
+  --ch-bg: #f8fafc;
+  --ch-card-bg: #ffffff;
+  --ch-border: #e2e8f0;
+  --ch-text: #1e293b;
+  --ch-text-light: #64748b;
+  --ch-radius: 12px;
+  --ch-radius-sm: 8px;
+  --ch-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --ch-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.06);
+  --ch-transition: all 0.2s ease;
+}
+
+/* ---- Page Background ---- */
+body.path-content-hub .main-content {
+  background-color: var(--ch-bg);
+}
+
+/* =============================================
+   LAYOUT: Sidebar LEFT, Content RIGHT
+   Override Olivero's grid-full and sidebar-grid
+   ============================================= */
+body.path-content-hub .sidebar-grid.grid-full {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 2rem !important;
+  align-items: flex-start !important;
+  grid-template-columns: none !important;
+}
+
+/* Sidebar on the LEFT */
+body.path-content-hub .sidebar-grid.grid-full > .region--sidebar {
+  order: -1 !important;
+  width: 280px !important;
+  min-width: 280px !important;
+  max-width: 280px !important;
+  flex-shrink: 0 !important;
+  position: sticky;
+  top: 1.5rem;
+  align-self: flex-start;
+  grid-column: unset !important;
+}
+
+/* Content on the RIGHT */
+body.path-content-hub .sidebar-grid.grid-full > .site-main {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: block !important;
+  grid-column: unset !important;
+}
+
+@media (max-width: 62.5rem) {
+  body.path-content-hub .sidebar-grid.grid-full {
+    flex-direction: column !important;
+  }
+  body.path-content-hub .sidebar-grid.grid-full > .region--sidebar {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    position: static;
+  }
+}
+
+/* =============================================
+   SEARCH BAR: Simple, clean, no background
+   Input and button on SAME LINE
+   ============================================= */
+body.path-content-hub .content-hub-view > .view-filters {
+  background: none !important;
+  padding: 0 !important;
+  margin-bottom: 1.5rem;
+  box-shadow: none !important;
+}
+
+/* Override Olivero .form--inline > * which uses inline-block */
+body.path-content-hub .views-exposed-form.form--inline {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0.75rem !important;
+  align-items: center !important;
+}
+
+body.path-content-hub .views-exposed-form.form--inline > .form-item {
+  display: block !important;
+  flex: 1 !important;
+  margin: 0 !important;
+  vertical-align: unset !important;
+}
+
+body.path-content-hub .views-exposed-form.form--inline > .form-actions {
+  display: block !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  vertical-align: unset !important;
+}
+
+/* Hide label and description */
+body.path-content-hub .views-exposed-form .form-item__label,
+body.path-content-hub .views-exposed-form .form-item__description {
+  display: none !important;
+}
+
+body.path-content-hub .views-exposed-form input.form-text {
+  width: 100% !important;
+  padding: 0.65rem 1rem !important;
+  border: 1px solid var(--ch-border) !important;
+  border-radius: var(--ch-radius-sm) !important;
+  background: var(--ch-card-bg) !important;
+  font-size: 0.95rem !important;
+  color: var(--ch-text) !important;
+  transition: var(--ch-transition);
+  box-sizing: border-box !important;
+}
+
+body.path-content-hub .views-exposed-form input.form-text:focus {
+  outline: none !important;
+  border-color: var(--ch-primary) !important;
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.15) !important;
+}
+
+body.path-content-hub .views-exposed-form input.form-submit {
+  background: var(--ch-primary) !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 0.65rem 1.5rem !important;
+  border-radius: var(--ch-radius-sm) !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  cursor: pointer;
+  transition: var(--ch-transition);
+  white-space: nowrap !important;
+  margin: 0 !important;
+}
+
+body.path-content-hub .views-exposed-form input.form-submit:hover {
+  background: var(--ch-primary-dark) !important;
+}
+
+/* =============================================
+   SIDEBAR FACETS
+   ============================================= */
+body.path-content-hub .content-hub-facet {
+  background: var(--ch-card-bg);
+  border: 1px solid var(--ch-border);
+  border-radius: var(--ch-radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--ch-shadow);
+}
+
+/* Facet block title */
+body.path-content-hub .content-hub-facet h2,
+body.path-content-hub .content-hub-facet .block__title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ch-primary);
+  margin: 0 0 0.75rem 0;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--ch-primary-light);
+}
+
+/* Facet items list - reset all list styles */
+body.path-content-hub .content-hub-facet ul,
+body.path-content-hub .content-hub-facet .item-list ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+body.path-content-hub .content-hub-facet li.facet-item {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+/* =============================================
+   FACET ITEM ROW: checkbox + value + count
+   ALL ON ONE LINE
+
+   Server HTML: <li><a><span.value>Text</span><span.count>(N)</span></a></li>
+   JS-enhanced: <li><input.checkbox><label><span.value><span.count></label><a style=none></li>
+   We style BOTH states.
+   ============================================= */
+
+/* --- Server-rendered state: <a> links --- */
+body.path-content-hub .content-hub-facet li.facet-item > a {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  padding: 0.4rem 0.5rem !important;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--ch-transition);
+  font-size: 0.875rem;
+  color: var(--ch-text) !important;
+  text-decoration: none !important;
+  line-height: 1.4;
+}
+
+body.path-content-hub .content-hub-facet li.facet-item > a:hover {
+  background: var(--ch-primary-light);
+  color: var(--ch-primary) !important;
+}
+
+/* When JS hides the <a> and adds checkbox+label, show the li as flex row */
+body.path-content-hub .content-hub-facet li.facet-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  padding: 0.4rem 0.5rem !important;
+  border-radius: 6px;
+  transition: var(--ch-transition);
+  cursor: pointer;
+}
+
+body.path-content-hub .content-hub-facet li.facet-item:hover {
+  background: var(--ch-primary-light);
+}
+
+/* Hidden anchor when JS is active */
+body.path-content-hub .content-hub-facet li.facet-item > a[style*="display: none"],
+body.path-content-hub .content-hub-facet li.facet-item > a[style*="display:none"] {
+  display: none !important;
+}
+
+/* --- JS-enhanced state: checkbox --- */
+body.path-content-hub .content-hub-facet input[type="checkbox"].facets-checkbox {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  border: 2px solid #cbd5e1 !important;
+  border-radius: 3px !important;
+  cursor: pointer;
+  transition: var(--ch-transition);
+  position: relative !important;
+  flex-shrink: 0 !important;
+  margin: 0 0.5rem 0 0 !important;
+  padding: 0 !important;
+  background: #fff !important;
+}
+
+body.path-content-hub .content-hub-facet input[type="checkbox"].facets-checkbox:checked {
+  background: var(--ch-primary) !important;
+  border-color: var(--ch-primary) !important;
+}
+
+body.path-content-hub .content-hub-facet input[type="checkbox"].facets-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0px;
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* --- JS-enhanced state: label --- */
+body.path-content-hub .content-hub-facet li.facet-item > label {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  flex: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--ch-text);
+  line-height: 1.4;
+  gap: 0;
+}
+
+/* Value text */
+body.path-content-hub .content-hub-facet .facet-item__value {
+  flex: 1 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Count badge - pushed to end of row */
+body.path-content-hub .content-hub-facet .facet-item__count {
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
+  background: var(--ch-primary-light);
+  color: var(--ch-primary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.1rem 0.45rem;
+  border-radius: 10px;
+  min-width: 1.4rem;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Active facet item highlight */
+body.path-content-hub .content-hub-facet li.facet-item.is-active {
+  background: var(--ch-primary-light);
+}
+
+body.path-content-hub .content-hub-facet li.facet-item.is-active > a,
+body.path-content-hub .content-hub-facet li.facet-item.is-active > label {
+  color: var(--ch-primary) !important;
+  font-weight: 600;
+}
+
+body.path-content-hub .content-hub-facet li.facet-item.is-active .facet-item__count {
+  background: var(--ch-primary);
+  color: #ffffff;
+}
+
+/* =============================================
+   RESULT CARDS
+   ============================================= */
+body.path-content-hub .content-hub-view .view-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+body.path-content-hub .content-hub-view .view-content .views-row {
+  background: var(--ch-card-bg);
+  border: 1px solid var(--ch-border);
+  border-radius: var(--ch-radius);
+  padding: 1.5rem 2rem;
+  box-shadow: var(--ch-shadow);
+  transition: var(--ch-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+body.path-content-hub .content-hub-view .view-content .views-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--ch-primary);
+  opacity: 0;
+  transition: var(--ch-transition);
+}
+
+body.path-content-hub .content-hub-view .view-content .views-row:hover {
+  box-shadow: var(--ch-shadow-hover);
+  transform: translateY(-2px);
+  border-color: var(--ch-primary-light);
+}
+
+body.path-content-hub .content-hub-view .view-content .views-row:hover::before {
+  opacity: 1;
+}
+
+/* Card title */
+body.path-content-hub .content-hub-view .views-row h2,
+body.path-content-hub .content-hub-view .views-row .node__title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+body.path-content-hub .content-hub-view .views-row h2 a,
+body.path-content-hub .content-hub-view .views-row .node__title a {
+  color: var(--ch-text);
+  text-decoration: none;
+  font-weight: 700;
+  transition: var(--ch-transition);
+}
+
+body.path-content-hub .content-hub-view .views-row h2 a:hover,
+body.path-content-hub .content-hub-view .views-row .node__title a:hover {
+  color: var(--ch-primary);
+}
+
+/* Reduce spacing between fields in cards */
+body.path-content-hub .content-hub-view .views-row .teaser__content {
+  gap: 4px !important;
+}
+
+body.path-content-hub .content-hub-view .views-row .field {
+  margin-block-end: 0 !important;
+  margin-block-start: 0 !important;
+}
+
+/* Inline label fields: tighter spacing and clear floats */
+body.path-content-hub .content-hub-view .views-row .field--label-inline {
+  margin-block-end: 0.1rem !important;
+}
+
+body.path-content-hub .content-hub-view .views-row .field--label-inline::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Make Tags label match other field labels (Tags uses h3, others use div) */
+body.path-content-hub .content-hub-view .views-row .field--tags__label {
+  font-size: inherit !important;
+  font-weight: bold !important;
+  font-family: inherit !important;
+  letter-spacing: normal !important;
+  color: inherit !important;
+  line-height: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Tags in cards: ensure items display on one line */
+body.path-content-hub .content-hub-view .views-row .field--tags__items {
+  display: inline-flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.path-content-hub .content-hub-view .views-row .field--tags__item {
+  display: inline !important;
+  margin: 0 !important;
+}
+
+/* Card body text */
+body.path-content-hub .content-hub-view .views-row .field--name-body,
+body.path-content-hub .content-hub-view .views-row .field--name-field-body {
+  color: var(--ch-text-light);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-top: 0.75rem;
+}
+
+/* Submitted info */
+body.path-content-hub .content-hub-view .views-row .node__meta,
+body.path-content-hub .content-hub-view .views-row .node__submitted {
+  font-size: 0.8rem;
+  color: var(--ch-text-light);
+  margin-bottom: 0.5rem;
+}
+
+/* Read more link */
+body.path-content-hub .content-hub-view .views-row .node__links,
+body.path-content-hub .content-hub-view .views-row .links {
+  margin-top: 0.5rem;
+  padding-top: 0;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+body.path-content-hub .content-hub-view .views-row .node__links a,
+body.path-content-hub .content-hub-view .views-row .links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--ch-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: var(--ch-transition);
+}
+
+body.path-content-hub .content-hub-view .views-row .node__links a:hover,
+body.path-content-hub .content-hub-view .views-row .links a:hover {
+  color: var(--ch-primary-dark);
+}
+
+body.path-content-hub .content-hub-view .views-row .node__links a::after,
+body.path-content-hub .content-hub-view .views-row .links a::after {
+  content: '\2192';
+  transition: var(--ch-transition);
+}
+
+body.path-content-hub .content-hub-view .views-row .node__links a:hover::after,
+body.path-content-hub .content-hub-view .views-row .links a:hover::after {
+  transform: translateX(3px);
+}
+
+/* ---- Content Type Badge on Cards ---- */
+body.path-content-hub .content-hub-view .views-row .node--type-article,
+body.path-content-hub .content-hub-view .views-row .node--type-events,
+body.path-content-hub .content-hub-view .views-row .node--type-resource {
+  position: relative;
+}
+
+body.path-content-hub .content-hub-view .views-row .node--type-article::before,
+body.path-content-hub .content-hub-view .views-row .node--type-events::before,
+body.path-content-hub .content-hub-view .views-row .node--type-resource::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.65rem;
+  border-radius: 0 0 0 8px;
+}
+
+body.path-content-hub .content-hub-view .views-row .node--type-article::before {
+  content: 'Article';
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+body.path-content-hub .content-hub-view .views-row .node--type-events::before {
+  content: 'Event';
+  background: #dcfce7;
+  color: #166534;
+}
+
+body.path-content-hub .content-hub-view .views-row .node--type-resource::before {
+  content: 'Resource';
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* ---- Page Title ---- */
+body.path-content-hub .page-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--ch-text);
+  margin-bottom: 0.5rem;
+}
+
+/* ---- Pager ---- */
+body.path-content-hub .content-hub-view .pager {
+  margin-top: 2rem;
+}
+
+body.path-content-hub .content-hub-view .pager__items {
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+  list-style: none;
+  padding: 0;
+}
+
+body.path-content-hub .content-hub-view .pager__item a,
+body.path-content-hub .content-hub-view .pager__item span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.5rem;
+  border-radius: var(--ch-radius-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: var(--ch-transition);
+  text-decoration: none;
+}
+
+body.path-content-hub .content-hub-view .pager__item a {
+  color: var(--ch-text);
+  background: var(--ch-card-bg);
+  border: 1px solid var(--ch-border);
+}
+
+body.path-content-hub .content-hub-view .pager__item a:hover {
+  background: var(--ch-primary-light);
+  border-color: var(--ch-primary);
+  color: var(--ch-primary);
+}
+
+body.path-content-hub .content-hub-view .pager__item--active span {
+  background: var(--ch-primary);
+  color: #ffffff;
+}
+
+/* ---- Empty state ---- */
+body.path-content-hub .content-hub-view .view-empty {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: var(--ch-card-bg);
+  border: 2px dashed var(--ch-border);
+  border-radius: var(--ch-radius);
+  color: var(--ch-text-light);
+  font-size: 1.1rem;
+}
+
+/* ---- AJAX loading indicator ---- */
+body.path-content-hub .ajax-progress {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1.5rem 2rem;
+  border-radius: var(--ch-radius);
+  box-shadow: var(--ch-shadow-hover);
+  z-index: 1000;
+}
+
+/* ---- Image in cards ---- */
+body.path-content-hub .content-hub-view .views-row .field--name-field-image {
+  margin-bottom: 1rem;
+  border-radius: var(--ch-radius-sm);
+  overflow: hidden;
+}
+
+body.path-content-hub .content-hub-view .views-row .field--name-field-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---- Link field in resources ---- */
+body.path-content-hub .content-hub-view .views-row .field--name-field-link a {
+  color: var(--ch-primary);
+  font-weight: 500;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  body.path-content-hub .content-hub-view .view-content .views-row {
+    padding: 1.25rem;
+  }
+
+  body.path-content-hub .content-hub-facet {
+    padding: 1rem;
+  }
+
+  body.path-content-hub .content-hub-view .views-row .node--type-article::before,
+  body.path-content-hub .content-hub-view .views-row .node--type-events::before,
+  body.path-content-hub .content-hub-view .views-row .node--type-resource::before {
+    position: static;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+  }
+
+  body.path-content-hub .content-hub-view > .view-filters form {
+    flex-direction: column;
+  }
+}

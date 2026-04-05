@@ -1,0 +1,8 @@
+name: Content Hub Styling
+type: module
+description: 'Custom styling and templates for the Content Hub page.'
+core_version_requirement: ^10 || ^11
+package: Custom
+dependencies:
+  - drupal:block
+  - facets:facets

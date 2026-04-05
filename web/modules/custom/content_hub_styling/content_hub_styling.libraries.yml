@@ -1,0 +1,9 @@
+content-hub:
+  css:
+    theme:
+      css/content-hub.css: {}
+  js:
+    js/content-hub.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Content Hub Enhancements module.
+ *
+ * Alters Search API queries to boost article results and support
+ * featured content prioritization.
+ */
+
+use Drupal\search_api\Query\QueryInterface;
+
+/**
+ * Implements hook_search_api_query_alter().
+ *
+ * Modifies the Content Hub index query to:
+ * - Boost "Article" content type results to appear first.
+ * - Prioritize featured content when the field is available.
+ */
+function content_hub_enhancements_search_api_query_alter(QueryInterface $query) {
+  $index = $query->getIndex();
+
+  if ($index->id() !== 'content_hub_index') {
+    return;
+  }
+
+  // Boost articles to appear first by sorting on content type.
+  // 'article' sorts before 'events' and 'resource' alphabetically.
+  $sorts = &$query->getSorts();
+
+  // Prepend type sort before the existing created sort so articles come first,
+  // then within each type results are ordered by newest first.
+  $new_sorts = [];
+  $new_sorts['type'] = 'ASC';
+  foreach ($sorts as $field => $order) {
+    if ($field !== 'type') {
+      $new_sorts[$field] = $order;
+    }
+  }
+  $sorts = $new_sorts;
+
+  // If a "featured" boolean field exists on the index, boost those results
+  // to the very top by adding it as the primary sort.
+  $index_fields = $index->getFields();
+  if (isset($index_fields['field_featured'])) {
+    $featured_sorts = [];
+    $featured_sorts['field_featured'] = 'DESC';
+    foreach ($sorts as $field => $order) {
+      if ($field !== 'field_featured') {
+        $featured_sorts[$field] = $order;
+      }
+    }
+    $sorts = $featured_sorts;
+  }
+}
